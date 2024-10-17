@@ -7,9 +7,19 @@ public class NoEvento {
         this.proximo = null;
     }
 
-    public Evento getEvento() { return evento; }
-    public void setEvento(Evento evento) { this.evento = evento; }
+    public Evento getEvento() {
+        return evento;
+    }
 
-    public NoEvento getProximo() { return proximo; }
-    public void setProximo(NoEvento proximo) { this.proximo = proximo; }
+    public void setEvento(Evento evento) {
+        this.evento = evento;
+    }
+
+    public NoEvento getProximo() {
+        return proximo;
+    }
+
+    public void setProximo(NoEvento proximo) {
+        this.proximo = proximo;
+    }
 }

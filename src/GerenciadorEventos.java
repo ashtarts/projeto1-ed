@@ -29,7 +29,8 @@ public class GerenciadorEventos {
             anterior = temp;
             temp = temp.getProximo();
         }
-        if (temp == null) return;
+        if (temp == null)
+            return;
 
         if (anterior == null) {
             inicioEventos = temp.getProximo();
@@ -82,7 +83,8 @@ public class GerenciadorEventos {
             anterior = temp;
             temp = temp.getProximo();
         }
-        if (temp == null) return;
+        if (temp == null)
+            return;
 
         if (anterior == null) {
             inicioParticipantes = temp.getProximo();
@@ -93,17 +95,55 @@ public class GerenciadorEventos {
 
     public void listarEventos() {
         NoEvento temp = inicioEventos;
+        System.out.println("\nListagem de Eventos:");
+        System.out.printf("%-20s %-20s %-20s %-10s %-25s%n", "Nome", "Data", "Local", "Capacidade", "Participantes");
+        System.out.println(
+                "---------------------------------------------------------------------------------------------------");
         while (temp != null) {
-            System.out.println(temp.getEvento());
+            Evento evento = temp.getEvento();
+            StringBuilder participantesInscritos = new StringBuilder();
+
+            // Listar participantes inscritos no evento
+            NoParticipante tempParticipante = inicioParticipantes;
+            while (tempParticipante != null) {
+                Participante participante = tempParticipante.getParticipante();
+                if (participante.getEvento().getNome().equals(evento.getNome())) {
+                    participantesInscritos.append(participante.getNome()).append(", ");
+                }
+                tempParticipante = tempParticipante.getProximo();
+            }
+
+            // Remover a última vírgula e espaço se houver participantes
+            if (participantesInscritos.length() > 0) {
+                participantesInscritos.setLength(participantesInscritos.length() - 2); // Remove o último ", "
+            } else {
+                participantesInscritos.append("Nenhum participante inscrito");
+            }
+
+            System.out.printf("%-20s %-20s %-20s %-10d %-25s%n",
+                    evento.getNome(),
+                    evento.getData(),
+                    evento.getLocal(),
+                    evento.getCapacidade(),
+                    participantesInscritos.toString());
+
             temp = temp.getProximo();
         }
     }
 
     public void listarParticipantes() {
         NoParticipante temp = inicioParticipantes;
+        System.out.println("\nListagem de Participantes:");
+        System.out.printf("%-20s %-25s %-20s%n", "Nome", "Número de Inscrição", "Evento");
+        System.out.println("----------------------------------------------------------");
         while (temp != null) {
-            System.out.println(temp.getParticipante());
+            Participante participante = temp.getParticipante();
+            System.out.printf("%-20s %-25s %-20s%n",
+                    participante.getNome(),
+                    participante.getNumeroInscricao(),
+                    participante.getEvento().getNome());
             temp = temp.getProximo();
         }
     }
+
 }

@@ -51,7 +51,7 @@ public class RestaurantManager {
                     scanner.nextLine();
                     System.out.print("Nome do Cliente: ");
                     String cliente = scanner.nextLine();
-                    Mesa novaMesa = new Mesa(numero, cliente, true, null);
+                    Mesa novaMesa = new Mesa(numero, cliente, true);
                     listaMesas.adicionarMesa(novaMesa);
                     System.out.println("Mesa adicionada com sucesso.");
                     break;
@@ -60,26 +60,35 @@ public class RestaurantManager {
                     int numeroFechar = scanner.nextInt();
                     scanner.nextLine();
                     listaMesas.fecharMesa(numeroFechar);
-                    System.out.println("Mesa fechada com sucesso.");
                     break;
                 case 3:
                     System.out.println("\nListagem de Mesas:");
-                    listaMesas.listarMesa();
+                    System.out.println(listaMesas.listarMesa());
                     break;
                 case 4:
-                    System.out.print("Descrição do Pedido: ");
-                    String descricao = scanner.nextLine();
-                    System.out.print("Quantidade: ");
-                    int quantidade = scanner.nextInt();
-                    System.out.print("Total: ");
-                    double total = scanner.nextDouble();
+                    System.out.print("Número da Mesa: ");
+                    int numeroMesa = scanner.nextInt();
                     scanner.nextLine();
-                    listaPedidos.adicionarPedido(descricao, quantidade, total);
-                    System.out.println("Pedido adicionado com sucesso.");
+
+                    // Verifica se a mesa existe e está ativa
+                    if (listaMesas.mesaAtiva(numeroMesa)) {
+                        System.out.print("Descrição do Pedido: ");
+                        String descricao = scanner.nextLine();
+                        System.out.print("Quantidade: ");
+                        int quantidade = scanner.nextInt();
+                        System.out.print("Total: ");
+                        double total = scanner.nextDouble();
+                        scanner.nextLine();
+                        // Adiciona o pedido associando ao número da mesa
+                        listaPedidos.adicionarPedido(descricao, quantidade, total, numeroMesa, listaMesas);
+                        System.out.println("Pedido adicionado com sucesso.");
+                    } else {
+                        System.out.println("Mesa não registrada ou já fechada. Não é possível adicionar o pedido.");
+                    }
                     break;
                 case 5:
                     System.out.println("\nListagem de Pedidos:");
-                    listaPedidos.listarPedidos();
+                    System.out.println(listaPedidos.listarPedidos());
                     break;
                 case 6:
                     adminMenu = false;
@@ -89,7 +98,6 @@ public class RestaurantManager {
             }
         }
     }
-
 
     public static void employeeRestaurantMenu(Scanner scanner, ListaMesa listaMesas, ListaPedidos listaPedidos) {
         boolean employeeMenu = true;
@@ -107,23 +115,33 @@ public class RestaurantManager {
 
             switch (opcaoFuncionario) {
                 case 1:
-                    System.out.print("Descrição do Pedido: ");
-                    String descricao = scanner.nextLine();
-                    System.out.print("Quantidade: ");
-                    int quantidade = scanner.nextInt();
-                    System.out.print("Total: ");
-                    double total = scanner.nextDouble();
+                    System.out.print("Número da Mesa: ");
+                    int numeroMesa = scanner.nextInt();
                     scanner.nextLine();
-                    listaPedidos.adicionarPedido(descricao, quantidade, total);
-                    System.out.println("Pedido adicionado com sucesso.");
+
+                    // Verifica se a mesa existe e está ativa
+                    if (listaMesas.mesaAtiva(numeroMesa)) {
+                        System.out.print("Descrição do Pedido: ");
+                        String descricao = scanner.nextLine();
+                        System.out.print("Quantidade: ");
+                        int quantidade = scanner.nextInt();
+                        System.out.print("Total: ");
+                        double total = scanner.nextDouble();
+                        scanner.nextLine();
+                        // Adiciona o pedido associando ao número da mesa
+                        listaPedidos.adicionarPedido(descricao, quantidade, total, numeroMesa, listaMesas);
+                        System.out.println("Pedido adicionado com sucesso.");
+                    } else {
+                        System.out.println("Mesa não registrada ou já fechada. Não é possível adicionar o pedido.");
+                    }
                     break;
                 case 2:
                     System.out.println("\nListagem de Pedidos:");
-                    listaPedidos.listarPedidos();
+                    System.out.println(listaPedidos.listarPedidos());
                     break;
                 case 3:
                     System.out.println("\nListagem de Mesas:");
-                    listaMesas.listarMesa();
+                    System.out.println(listaMesas.listarMesa());
                     break;
                 case 4:
                     employeeMenu = false;

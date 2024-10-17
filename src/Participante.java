@@ -9,21 +9,36 @@ public class Participante {
         this.evento = evento;
     }
 
-    public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
+    public String getNome() {
+        return nome;
+    }
 
-    public String getNumeroInscricao() { return numeroInscricao; }
-    public void setNumeroInscricao(String numeroInscricao) { this.numeroInscricao = numeroInscricao; }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-    public Evento getEvento() { return evento; }
-    public void setEvento(Evento evento) { this.evento = evento; }
+    public String getNumeroInscricao() {
+        return numeroInscricao;
+    }
+
+    public void setNumeroInscricao(String numeroInscricao) {
+        this.numeroInscricao = numeroInscricao;
+    }
+
+    public Evento getEvento() {
+        return evento;
+    }
+
+    public void setEvento(Evento evento) {
+        this.evento = evento;
+    }
 
     @Override
     public String toString() {
         return "Participante{" +
-                "nome='" + nome + '\'' +
-                ", numeroInscricao='" + numeroInscricao + '\'' +
-                ", evento=" + evento +
+                "nome: '" + nome + '\'' +
+                ", numero de inscricao:'" + numeroInscricao + '\'' +
+                ", evento: " + evento +
                 '}';
     }
 }

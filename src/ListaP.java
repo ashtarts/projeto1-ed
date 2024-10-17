@@ -84,7 +84,8 @@ class ListaP {
             return;
         }
         while (atual != null) {
-            System.out.println("Nome: " + atual.nome + "\nIdade: " + atual.idade + "\nHistórico Médico: " + atual.historicoMedico + "\nData da Última Consulta: " + atual.dataUltimaConsulta + "\n");
+            System.out.println("Nome: " + atual.nome + "\nIdade: " + atual.idade + "\nHistórico Médico: "
+                    + atual.historicoMedico + "\nData da Última Consulta: " + atual.dataUltimaConsulta + "\n");
             atual = atual.end;
         }
     }
@@ -97,7 +98,8 @@ class ListaP {
             return;
         }
         while (atual != null) {
-            System.out.println("Nome: " + atual.nome + "\nIdade: " + atual.idade + "\nHistórico Médico: " + atual.historicoMedico + "\nData da Última Consulta: " + atual.dataUltimaConsulta + "\n");
+            System.out.println("Nome: " + atual.nome + "\nIdade: " + atual.idade + "\nHistórico Médico: "
+                    + atual.historicoMedico + "\nData da Última Consulta: " + atual.dataUltimaConsulta + "\n");
             atual = atual.head;
         }
     }
