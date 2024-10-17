@@ -2,7 +2,7 @@ public class Pedido {
     String descricao;
     int quantidade;
     double total;
-    int numeroMesa; // Adicione este campo
+    int numeroMesa;
 
     public Pedido(String descricao, int quantidade, double total, int numeroMesa) {
         this.descricao = descricao;
