@@ -2,31 +2,26 @@ public class Mesa {
     int numero;
     String cliente;
     boolean ativa;
-    double totalConta; // Novo campo para armazenar o total da conta
+    Mesa proximo;
 
     public Mesa(int numero, String cliente, boolean ativa) {
         this.numero = numero;
         this.cliente = cliente;
         this.ativa = ativa;
-        this.totalConta = 0; // Inicializa o total da conta como zero
+        this.proximo = null; // ou o valor adequado para o próximo nó
     }
 
     public void fecharConta() {
-        // Lógica para fechar a conta
         this.ativa = false;
+        System.out.println("Conta da mesa " + numero + " foi fechada.");
     }
 
-    public void adicionarPedido(double total) {
-        this.totalConta += total; // Adiciona o valor do pedido ao total da conta
-    }
-
-    public double getTotalConta() {
-        return totalConta; // Método para obter o total da conta
+    public void adicionarPedido(double valor) {
+        // lógica para adicionar o valor do pedido à conta
     }
 
     @Override
     public String toString() {
-        return "Mesa " + numero + " - Cliente: " + cliente + " - Ativa: " + ativa + " - Total da Conta: R$ "
-                + totalConta;
+        return "Mesa " + numero + " - Cliente: " + cliente + " - Ativa: " + ativa;
     }
 }

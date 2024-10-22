@@ -9,6 +9,7 @@ public class Main {
         ListaMesa listaMesas = new ListaMesa();
         ListaPedidos listaPedidos = new ListaPedidos();
         Scanner scanner = new Scanner(System.in);
+        Cardapio cardapio = new Cardapio();
         boolean executar = true;
 
         while (executar) {
@@ -29,7 +30,7 @@ public class Main {
                     EventManager.eventLoginMenu(scanner, gerenciadorEventos);
                     break;
                 case 3:
-                    RestaurantManager.restaurantLoginMenu(scanner, listaMesas, listaPedidos);
+                    RestaurantManager.restaurantLoginMenu(scanner, listaMesas, listaPedidos, cardapio);
                     break;
                 case 4:
                     executar = false;

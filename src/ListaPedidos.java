@@ -11,7 +11,6 @@ public class ListaPedidos {
         Pedido novoPedido = new Pedido(descricao, quantidade, total, numeroMesa);
         PedidoNode novoPedidoNo = new PedidoNode(novoPedido);
 
-        // Adiciona o pedido à lista
         if (inicio == null) {
             inicio = novoPedidoNo;
             fim = novoPedidoNo;
@@ -22,10 +21,9 @@ public class ListaPedidos {
             fim.proximo = inicio;
         }
 
-        // Atualiza o total da conta da mesa correspondente
-        Mesa mesa = listaMesas.obterMesa(numeroMesa); // Obtém a mesa pelo número
+        Mesa mesa = listaMesas.getMesa(numeroMesa);
         if (mesa != null) {
-            mesa.adicionarPedido(total); // Atualiza o total da conta
+            mesa.adicionarPedido(total);
         }
     }
 
@@ -36,9 +34,9 @@ public class ListaPedidos {
         StringBuilder sb = new StringBuilder();
         PedidoNode atual = inicio;
         do {
-            sb.append(atual.pedido).append("\n"); // Adiciona cada pedido à StringBuilder
+            sb.append(atual.pedido).append("\n");
             atual = atual.proximo;
         } while (atual != inicio);
-        return sb.toString(); // Retorna a string com todos os pedidos
+        return sb.toString();
     }
 }

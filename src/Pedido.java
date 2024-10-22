@@ -8,7 +8,7 @@ public class Pedido {
         this.descricao = descricao;
         this.quantidade = quantidade;
         this.total = total;
-        this.numeroMesa = numeroMesa; // Inicializa o número da mesa
+        this.numeroMesa = numeroMesa;
     }
 
     @Override
