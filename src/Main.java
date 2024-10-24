@@ -30,7 +30,8 @@ public class Main {
                     EventManager.eventLoginMenu(scanner, gerenciadorEventos);
                     break;
                 case 3:
-                    RestaurantManager.restaurantLoginMenu(scanner, listaMesas, listaPedidos, cardapio);
+                    // Adicionando o gerenciadorEventos como argumento ao restaurantLoginMenu
+                    RestaurantManager.restaurantLoginMenu(scanner, listaMesas, listaPedidos, cardapio, doutores, gerenciadorEventos);
                     break;
                 case 4:
                     executar = false;

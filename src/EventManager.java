@@ -42,6 +42,7 @@ public class EventManager {
             System.out.println("6. Adicionar Participante");
             System.out.println("7. Remover Participante");
             System.out.println("8. Sair para o Menu Principal");
+            System.out.println("9. Ver Arrecadação do Evento");
             System.out.print("Escolha uma opção: ");
             int opcaoAdmin = scanner.nextInt();
             scanner.nextLine();
@@ -92,14 +93,18 @@ public class EventManager {
                     System.out.print("\nNome do Participante: ");
                     String nomeParticipante = scanner.nextLine();
                     System.out.print("Número de Inscrição: ");
-                    String numeroInscricao = scanner.nextLine();
+                    String numeroInscricao = scanner.nextLine(); // Solicita o número de inscrição
+                    System.out.print("Idade do Participante: ");
+                    int idadeParticipante = scanner.nextInt();
+                    scanner.nextLine();  // consume newline
                     System.out.print("Nome do Evento para Inscrição: ");
                     String nomeEvento = scanner.nextLine();
                     Evento eventoParticipante = gerenciador.buscarEvento(nomeEvento);
                     if (eventoParticipante != null) {
-                        Participante participante = new Participante(nomeParticipante, numeroInscricao, eventoParticipante);
+                        Participante participante = new Participante(nomeParticipante, numeroInscricao, eventoParticipante, idadeParticipante);
                         gerenciador.adicionarParticipante(participante);
-                        System.out.println("Participante adicionado com sucesso.");
+                        eventoParticipante.venderIngresso(participante.getPrecoIngresso());
+                        System.out.println("Participante adicionado com sucesso. Preço do ingresso: " + participante.getPrecoIngresso() + " reais.");
                     } else {
                         System.out.println("Evento não encontrado.");
                     }
@@ -113,6 +118,18 @@ public class EventManager {
                 case 8:
                     adminMenu = false;
                     break;
+                case 9:
+                    System.out.print("\nNome do Evento para ver arrecadação: ");
+                    String nomeEventoArrecadacao = scanner.nextLine();
+                    Evento eventoArrecadacao = gerenciador.buscarEvento(nomeEventoArrecadacao);
+                    if (eventoArrecadacao != null) {
+                        System.out.println("Total de ingressos vendidos: " + eventoArrecadacao.getTotalIngressosVendidos());
+                        System.out.println("Total arrecadado: " + eventoArrecadacao.getTotalArrecadado() + " reais.");
+                    } else {
+                        System.out.println("Evento não encontrado.");
+                    }
+                    break;
+
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
             }

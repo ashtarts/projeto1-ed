@@ -93,6 +93,18 @@ public class GerenciadorEventos {
         }
     }
 
+    // Método para buscar um participante pelo número de inscrição
+    public Participante buscarParticipante(String numeroInscricao) {
+        NoParticipante temp = inicioParticipantes;
+        while (temp != null) {
+            if (temp.getParticipante().getNumeroInscricao().equals(numeroInscricao)) {
+                return temp.getParticipante(); // Retorna o participante se encontrado
+            }
+            temp = temp.getProximo();
+        }
+        return null; // Retorna null se não encontrar
+    }
+
     public void listarEventos() {
         NoEvento temp = inicioEventos;
         System.out.println("\nListagem de Eventos:");
@@ -145,5 +157,4 @@ public class GerenciadorEventos {
             temp = temp.getProximo();
         }
     }
-
 }

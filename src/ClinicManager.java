@@ -91,9 +91,13 @@ public class ClinicManager {
                     String specialty = scanner.nextLine();
                     System.out.print("Disponibilidade do doutor: ");
                     String availability = scanner.nextLine();
-                    doutores.naosei(doctorName, specialty, availability);
+                    System.out.print("Matrícula do doutor: ");
+                    String matricula = scanner.nextLine();
+
+                    doutores.naosei(doctorName, specialty, availability, matricula);
                     System.out.println("Doutor adicionado com sucesso!");
                     break;
+
                 case 7:
                     System.out.println("\nLista de doutores do início ao fim:");
                     doutores.mostrarCima();

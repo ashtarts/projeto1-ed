@@ -3,12 +3,22 @@ public class Evento {
     private String data;
     private String local;
     private int capacidade;
+    private int totalIngressosVendidos;
+    private double totalArrecadado;
 
     public Evento(String nome, String data, String local, int capacidade) {
         this.nome = nome;
         this.data = data;
         this.local = local;
         this.capacidade = capacidade;
+        this.totalIngressosVendidos = 0;
+        this.totalArrecadado = 0.0;
+    }
+
+    // Métodos para atualizar ingressos e arrecadação
+    public void venderIngresso(double valorIngresso) {
+        this.totalIngressosVendidos++;
+        this.totalArrecadado += valorIngresso;
     }
 
     // Getters e Setters
@@ -24,6 +34,10 @@ public class Evento {
     public int getCapacidade() { return capacidade; }
     public void setCapacidade(int capacidade) { this.capacidade = capacidade; }
 
+    public int getTotalIngressosVendidos() { return totalIngressosVendidos; }
+
+    public double getTotalArrecadado() { return totalArrecadado; }
+
     @Override
     public String toString() {
         return "Evento{" +
@@ -31,6 +45,8 @@ public class Evento {
                 ", data='" + data + '\'' +
                 ", local='" + local + '\'' +
                 ", capacidade=" + capacidade +
+                ", totalIngressosVendidos=" + totalIngressosVendidos +
+                ", totalArrecadado=" + totalArrecadado +
                 '}';
     }
 }

@@ -10,8 +10,8 @@ class ListaD {
     }
 
     // Adiciona um doutor ao final da lista
-    public void naosei(String nome, String especialidade, String disponibilidade) {
-        Doutor novoDoutor = new Doutor(nome, especialidade, disponibilidade);
+    public void naosei(String nome, String especialidade, String disponibilidade, String matricula) {
+        Doutor novoDoutor = new Doutor(nome, especialidade, disponibilidade, matricula);
         if (head == null) {
             head = end = novoDoutor;
         } else {
