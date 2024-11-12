@@ -190,7 +190,8 @@ public class RestaurantManager {
             if (atual.matricula.equals(matricula)) {
                 return true;
             }
-            atual = atual.end;
+            atual = atual.proximo;
+
         }
         return false;
     }

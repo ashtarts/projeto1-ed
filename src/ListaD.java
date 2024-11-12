@@ -15,7 +15,7 @@ public class ListaD {
         if (head == null) { // Lista vazia
             head = end = novoDoutor;
         } else {
-            end.next = novoDoutor;
+            end.proximo = novoDoutor;
             end = novoDoutor;
         }
         System.out.println("Doutor adicionado com sucesso!");
@@ -29,9 +29,9 @@ public class ListaD {
         while (atual != null) {
             if (atual.nome.equalsIgnoreCase(nome)) {
                 if (anterior != null) {
-                    anterior.next = atual.next;
+                    anterior.proximo = atual.proximo;
                 } else {
-                    head = atual.next;
+                    head = atual.proximo;
                 }
                 if (atual == end) {
                     end = anterior;
@@ -40,7 +40,7 @@ public class ListaD {
                 return;
             }
             anterior = atual;
-            atual = atual.next;
+            atual = atual.proximo;
         }
         System.out.println("Doutor não encontrado.");
     }
@@ -52,7 +52,7 @@ public class ListaD {
             if (atual.nome.equalsIgnoreCase(nome)) {
                 return atual;
             }
-            atual = atual.next;
+            atual = atual.proximo;
         }
         return null;
     }
@@ -83,7 +83,7 @@ public class ListaD {
         }
         while (atual != null) {
             System.out.println("Nome: " + atual.nome + "\nEspecialidade: " + atual.especialidade + "\nDisponibilidade: " + atual.disponibilidade + "\n");
-            atual = atual.next;
+            atual = atual.proximo;
         }
     }
 }
