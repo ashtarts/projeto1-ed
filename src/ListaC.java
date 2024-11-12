@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-class ListaC {
+public class ListaC {
     Consulta head;
     Consulta end;
 

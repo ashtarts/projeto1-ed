@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
-class ListaD {
-    Doutor head;
-    Doutor end;
+public class ListaD {
+    Doutor head; // Primeiro doutor na lista
+    Doutor end;  // Último doutor na lista
 
     public ListaD() {
         this.head = null;
@@ -12,34 +12,35 @@ class ListaD {
     // Adiciona um doutor ao final da lista
     public void naosei(String nome, String especialidade, String disponibilidade, String matricula) {
         Doutor novoDoutor = new Doutor(nome, especialidade, disponibilidade, matricula);
-        if (head == null) {
+        if (head == null) { // Lista vazia
             head = end = novoDoutor;
         } else {
-            end.end = novoDoutor;
-            novoDoutor.head = end;
+            end.next = novoDoutor;
             end = novoDoutor;
         }
+        System.out.println("Doutor adicionado com sucesso!");
     }
 
     // Deleta um doutor pelo nome
     public void seila(String nome) {
         Doutor atual = head;
+        Doutor anterior = null;
+
         while (atual != null) {
             if (atual.nome.equalsIgnoreCase(nome)) {
-                if (atual.head != null) {
-                    atual.head.end = atual.end;
+                if (anterior != null) {
+                    anterior.next = atual.next;
                 } else {
-                    head = atual.end;
+                    head = atual.next;
                 }
-                if (atual.end != null) {
-                    atual.end.head = atual.head;
-                } else {
-                    end = atual.head;
+                if (atual == end) {
+                    end = anterior;
                 }
                 System.out.println("Doutor deletado com sucesso.");
                 return;
             }
-            atual = atual.end;
+            anterior = atual;
+            atual = atual.next;
         }
         System.out.println("Doutor não encontrado.");
     }
@@ -51,7 +52,7 @@ class ListaD {
             if (atual.nome.equalsIgnoreCase(nome)) {
                 return atual;
             }
-            atual = atual.end;
+            atual = atual.next;
         }
         return null;
     }
@@ -82,20 +83,7 @@ class ListaD {
         }
         while (atual != null) {
             System.out.println("Nome: " + atual.nome + "\nEspecialidade: " + atual.especialidade + "\nDisponibilidade: " + atual.disponibilidade + "\n");
-            atual = atual.end;
-        }
-    }
-
-    // Exibe a lista de doutores do fim ao início
-    public void mostrarBaixo() {
-        Doutor atual = end;
-        if (atual == null) {
-            System.out.println("A lista de doutores está vazia.");
-            return;
-        }
-        while (atual != null) {
-            System.out.println("Nome: " + atual.nome + "\nEspecialidade: " + atual.especialidade + "\nDisponibilidade: " + atual.disponibilidade + "\n");
-            atual = atual.head;
+            atual = atual.next;
         }
     }
 }

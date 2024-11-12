@@ -1,58 +1,58 @@
-public class ListaMesa {
-    private Mesa head;
+    public class ListaMesa {
+        private Mesa head;
 
-    public ListaMesa() {
-        this.head = null;
-    }
+        public ListaMesa() {
+            this.head = null;
+        }
 
-    public void adicionarMesa(Mesa novaMesa) {
-        if (head == null) {
-            head = novaMesa;
-        } else {
+        public void adicionarMesa(Mesa novaMesa) {
+            if (head == null) {
+                head = novaMesa;
+            } else {
+                Mesa temp = head;
+                while (temp.proximo != null) {
+                    temp = temp.proximo;
+                }
+                temp.proximo = novaMesa;
+            }
+        }
+
+        public void fecharMesa(int numero) {
             Mesa temp = head;
-            while (temp.proximo != null) {
+            while (temp != null) {
+                if (temp.numero == numero) {
+                    temp.fecharConta();
+                    System.out.println("Mesa " + numero + " fechada com sucesso.");
+                    return;
+                }
                 temp = temp.proximo;
             }
-            temp.proximo = novaMesa;
+            System.out.println("Mesa " + numero + " não encontrada.");
         }
-    }
 
-    public void fecharMesa(int numero) {
-        Mesa temp = head;
-        while (temp != null) {
-            if (temp.numero == numero) {
-                temp.fecharConta();
-                System.out.println("Mesa " + numero + " fechada com sucesso.");
-                return;
+        public Mesa getMesa(int numero) {
+            Mesa temp = head;
+            while (temp != null) {
+                if (temp.numero == numero) {
+                    return temp;
+                }
+                temp = temp.proximo;
             }
-            temp = temp.proximo;
+            return null;
         }
-        System.out.println("Mesa " + numero + " não encontrada.");
-    }
 
-    public Mesa getMesa(int numero) {
-        Mesa temp = head;
-        while (temp != null) {
-            if (temp.numero == numero) {
-                return temp;
+        public String listarMesa() {
+            StringBuilder sb = new StringBuilder();
+            Mesa temp = head;
+            while (temp != null) {
+                sb.append(temp.toString()).append("\n");
+                temp = temp.proximo;
             }
-            temp = temp.proximo;
+            return sb.toString();
         }
-        return null;
-    }
 
-    public String listarMesa() {
-        StringBuilder sb = new StringBuilder();
-        Mesa temp = head;
-        while (temp != null) {
-            sb.append(temp.toString()).append("\n");
-            temp = temp.proximo;
+        public boolean mesaAtiva(int numero) {
+            Mesa mesa = getMesa(numero);
+            return mesa != null && mesa.ativa;
         }
-        return sb.toString();
     }
-
-    public boolean mesaAtiva(int numero) {
-        Mesa mesa = getMesa(numero);
-        return mesa != null && mesa.ativa;
-    }
-}

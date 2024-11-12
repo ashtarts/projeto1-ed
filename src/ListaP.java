@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-class ListaP {
+public class ListaP {
     Paciente head;
     Paciente end;
 
