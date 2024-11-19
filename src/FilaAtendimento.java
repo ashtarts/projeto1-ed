@@ -13,13 +13,14 @@ public class FilaAtendimento {
     }
 
     public void adicionarNaFila(Agendamento agendamento, String gravidade) {
-        switch (gravidade.toLowerCase()) {
+        switch (gravidade) {
             case "muito grave":
                 filaMuitoGrave.add(agendamento);
                 break;
             case "grave":
                 filaGrave.add(agendamento);
                 break;
+            case "leve":
             default:
                 filaLeve.add(agendamento);
                 break;
@@ -29,13 +30,12 @@ public class FilaAtendimento {
 
     public Agendamento atenderProximo() {
         if (!filaMuitoGrave.isEmpty()) {
-            return filaMuitoGrave.poll();
+            return filaMuitoGrave.poll(); // Retorna o próximo da fila "muito grave"
         } else if (!filaGrave.isEmpty()) {
-            return filaGrave.poll();
+            return filaGrave.poll(); // Retorna o próximo da fila "grave"
         } else if (!filaLeve.isEmpty()) {
-            return filaLeve.poll();
+            return filaLeve.poll(); // Retorna o próximo da fila "leve"
         }
-        System.out.println("Nenhum paciente na fila de atendimento.");
-        return null;
+        return null; // Nenhum paciente na fila
     }
 }
