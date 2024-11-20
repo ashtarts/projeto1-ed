@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.Stack;
 
 public class ClinicManager {
-    private final Stack<String> historicoAcoes; 
+    private final Stack<String> historicoAcoes;
     private final FilaAtendimento filaAtendimento;
 
     public ClinicManager() {
@@ -46,18 +46,24 @@ public class ClinicManager {
             System.out.println("2. Exibir lista de pacientes");
             System.out.println("3. Editar informações de paciente");
             System.out.println("4. Deletar paciente");
+            System.out.println("/--------------------------------------/");
             System.out.println("5. Adicionar doutor");
             System.out.println("6. Exibir lista de doutores");
             System.out.println("7. Editar informações de doutor");
             System.out.println("8. Deletar doutor");
-            System.out.println("9. Adicionar consulta com triagem");
-            System.out.println("10. Exibir lista de consultas");
-            System.out.println("11. Editar informações de consulta");
-            System.out.println("12. Deletar consulta");
-            System.out.println("13. Atender próximo paciente");
-            System.out.println("14. Exibir histórico de ações");
-            System.out.println("15. Desfazer última ação");
-            System.out.println("16. Logout");
+            System.out.println("9. Buscar doutor por especialidade");
+            System.out.println("/--------------------------------------/");
+            System.out.println("10. Adicionar consulta com triagem");
+            System.out.println("11. Exibir lista de consultas");
+            System.out.println("12. Editar informações de consulta");
+            System.out.println("13. Deletar consulta");
+            System.out.println("/--------------------------------------/");
+            System.out.println("14. Atender próximo paciente");
+            System.out.println("/--------------------------------------/");
+            System.out.println("15. Exibir histórico de ações");
+            System.out.println("16. Desfazer última ação");
+            System.out.println("/--------------------------------------/");
+            System.out.println("17. Logout");
             System.out.print("Escolha uma opção: ");
             option = scanner.nextInt();
             scanner.nextLine();
@@ -88,27 +94,30 @@ public class ClinicManager {
                     deletarDoutor(scanner, doutores);
                     break;
                 case 9:
-                    adicionarConsulta(scanner, consultas);
+                    buscarDoutorPorEspecialidade(scanner, doutores);
                     break;
                 case 10:
-                    consultas.mostrarCima();
+                    adicionarConsulta(scanner, consultas);
                     break;
                 case 11:
-                    editarConsulta(scanner, consultas);
+                    consultas.mostrarCima();
                     break;
                 case 12:
-                    deletarConsulta(scanner, consultas);
+                    editarConsulta(scanner, consultas);
                     break;
                 case 13:
-                    atenderPaciente();
+                    deletarConsulta(scanner, consultas);
                     break;
                 case 14:
-                    exibirHistorico();
+                    atenderPaciente();
                     break;
                 case 15:
-                    desfazerUltimaAcao(pacientes, doutores, consultas);
+                    exibirHistorico();
                     break;
                 case 16:
+                    desfazerUltimaAcao(pacientes, doutores, consultas);
+                    break;
+                case 17:
                     System.out.println("Deslogando...");
                     break;
                 default:
@@ -117,6 +126,7 @@ public class ClinicManager {
             }
         } while (option != 16);
     }
+
 
     public void employeeClinicMenu(Scanner scanner, ListaP pacientes, ListaD doutores, ListaC consultas) {
         int option;
@@ -170,7 +180,6 @@ public class ClinicManager {
         } while (option != 9);
     }
 
-    // Métodos para desfazer a última ação
     public void desfazerUltimaAcao(ListaP pacientes, ListaD doutores, ListaC consultas) {
         if (historicoAcoes.isEmpty()) {
             System.out.println("Nenhuma ação para desfazer.");
@@ -196,7 +205,6 @@ public class ClinicManager {
             System.out.println("Ação desconhecida ou não pode ser desfeita.");
         }
     }
-    // Métodos para gerenciamento de pacientes
     public void adicionarPaciente(Scanner scanner, ListaP pacientes) {
         System.out.print("Nome do paciente: ");
         String nome = scanner.nextLine();
@@ -226,7 +234,6 @@ public class ClinicManager {
         historicoAcoes.push("Paciente deletado: " + nomePaciente);
     }
 
-    // Métodos para gerenciamento de doutores
     public void adicionarDoutor(Scanner scanner, ListaD doutores) {
         System.out.print("Nome do doutor: ");
         String nomeDoutor = scanner.nextLine();
@@ -255,7 +262,6 @@ public class ClinicManager {
         historicoAcoes.push("Doutor deletado: " + nomeDoutor);
     }
 
-    // Métodos para consultas com triagem
     public void adicionarConsulta(Scanner scanner, ListaC consultas) {
         System.out.print("Nome do paciente: ");
         String nomePaciente = scanner.nextLine();
@@ -300,7 +306,6 @@ public class ClinicManager {
         }
     }
 
-    // Método para exibir o histórico de ações
     public void exibirHistorico() {
         if (historicoAcoes.isEmpty()) {
             System.out.println("Nenhuma ação registrada no histórico.");
@@ -311,4 +316,12 @@ public class ClinicManager {
             }
         }
     }
+
+    public void buscarDoutorPorEspecialidade(Scanner scanner, ListaD doutores) {
+        System.out.print("Digite a especialidade a ser buscada: ");
+        String especialidade = scanner.nextLine();
+        System.out.println("Doutores com especialidade: " + especialidade);
+        doutores.buscarPorEspecialidade(especialidade);
+    }
+
 }

@@ -3,14 +3,20 @@ public class Doutor {
     String especialidade;
     String disponibilidade;
     String matricula;
-    Doutor proximo; // Campo para o próximo nó na lista encadeada
+    Doutor proximo;
+
+    Doutor esquerda;
+    Doutor direita;
 
     public Doutor(String nome, String especialidade, String disponibilidade, String matricula) {
         this.nome = nome;
         this.especialidade = especialidade;
         this.disponibilidade = disponibilidade;
         this.matricula = matricula;
-        this.proximo = null; // Inicializa o próximo nó como nulo
+
+        this.proximo = null;
+        this.esquerda = null;
+        this.direita = null;
     }
 
     @Override
@@ -18,5 +24,3 @@ public class Doutor {
         return "Doutor: " + nome + ", Especialidade: " + especialidade + ", Disponibilidade: " + disponibilidade;
     }
 }
-
-
