@@ -29,9 +29,6 @@ public class Main {
                 case 2:
                     EventManager.eventLoginMenu(scanner, gerenciadorEventos);
                     break;
-                case 3:
-                    RestaurantManager.restaurantLoginMenu(scanner, listaMesas, listaPedidos, cardapio, doutores, gerenciadorEventos);
-                    break;
                 case 4:
                     executar = false;
                     System.out.println("Saindo do sistema...");

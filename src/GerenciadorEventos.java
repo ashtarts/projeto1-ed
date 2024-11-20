@@ -1,7 +1,8 @@
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GerenciadorEventos {
-    private NoEvento inicioEventos;
+    private NoEventoBinario inicioEventos;
     private NoParticipante inicioParticipantes;
 
     public GerenciadorEventos() {
@@ -9,12 +10,13 @@ public class GerenciadorEventos {
         this.inicioParticipantes = null;
     }
 
+    // Adicionar Evento
     public void adicionarEvento(Evento evento) {
-        NoEvento novoNo = new NoEvento(evento);
+        NoEventoBinario novoNo = new NoEventoBinario(evento);
         if (inicioEventos == null) {
             inicioEventos = novoNo;
         } else {
-            NoEvento temp = inicioEventos;
+            NoEventoBinario temp = inicioEventos;
             while (temp.getProximo() != null) {
                 temp = temp.getProximo();
             }
@@ -22,47 +24,85 @@ public class GerenciadorEventos {
         }
     }
 
+    // Atualizar Evento
+    public void atualizarEvento(String nome, String novaData, String novoLocal, int novaCapacidade, double novoPreco) {
+        NoEventoBinario temp = inicioEventos;
+        while (temp != null) {
+            if (temp.getEvento().getNome().equals(nome)) {
+                Evento evento = temp.getEvento();
+                evento.setData(novaData);
+                evento.setLocal(novoLocal);
+                evento.setCapacidade(novaCapacidade);
+                evento.setPreco(novoPreco);
+                System.out.println("Evento " + nome + " atualizado com sucesso.");
+                return;
+            }
+            temp = temp.getProximo();
+        }
+        System.out.println("Evento não encontrado.");
+    }
+
+    // Remover Evento
     public void removerEvento(String nome) {
-        NoEvento temp = inicioEventos;
-        NoEvento anterior = null;
+        NoEventoBinario temp = inicioEventos;
+        NoEventoBinario anterior = null;
         while (temp != null && !temp.getEvento().getNome().equals(nome)) {
             anterior = temp;
             temp = temp.getProximo();
         }
-        if (temp == null)
+        if (temp == null) {
+            System.out.println("Evento não encontrado.");
             return;
+        }
 
         if (anterior == null) {
             inicioEventos = temp.getProximo();
         } else {
             anterior.setProximo(temp.getProximo());
         }
+        System.out.println("Evento " + nome + " removido com sucesso.");
     }
 
-    public void atualizarEvento(String nome, String novaData, String novoLocal, int novaCapacidade) {
-        NoEvento temp = inicioEventos;
+    // Listar Eventos
+    public void listarEventos() {
+        NoEventoBinario temp = inicioEventos;
+        if (temp == null) {
+            System.out.println("Nenhum evento cadastrado.");
+            return;
+        }
+
+        System.out.println("\nListagem de Eventos:");
+        System.out.printf("%-20s %-20s %-20s %-10s %-25s%n", "Nome", "Data", "Local", "Capacidade", "Participantes");
+        System.out.println(
+                "---------------------------------------------------------------------------------------------------");
+
         while (temp != null) {
-            if (temp.getEvento().getNome().equals(nome)) {
-                temp.getEvento().setData(novaData);
-                temp.getEvento().setLocal(novoLocal);
-                temp.getEvento().setCapacidade(novaCapacidade);
-                return;
-            }
+            Evento evento = temp.getEvento();
+            List<String> participantesInscritos = buscarParticipantesEvento(evento.getNome());
+
+            System.out.printf("%-20s %-20s %-20s %-10d %-25s%n",
+                    evento.getNome(),
+                    evento.getData(),
+                    evento.getLocal(),
+                    evento.getCapacidade(),
+                    participantesInscritos.isEmpty() ? "Nenhum participante inscrito" : String.join(", ", participantesInscritos));
+
             temp = temp.getProximo();
         }
     }
-
+    // Buscar Evento
     public Evento buscarEvento(String nome) {
-        NoEvento temp = inicioEventos;
+        NoEventoBinario temp = inicioEventos;
         while (temp != null) {
-            if (temp.getEvento().getNome().equals(nome)) {
+            if (temp.getEvento().getNome().equalsIgnoreCase(nome)) {
                 return temp.getEvento();
             }
             temp = temp.getProximo();
         }
-        return null;
+        return null; // Retorna null se o evento não for encontrado
     }
 
+    // Adicionar Participante
     public void adicionarParticipante(Participante participante) {
         NoParticipante novoNo = new NoParticipante(participante);
         if (inicioParticipantes == null) {
@@ -74,8 +114,10 @@ public class GerenciadorEventos {
             }
             temp.setProximo(novoNo);
         }
+        System.out.println("Participante " + participante.getNome() + " adicionado com sucesso.");
     }
 
+    // Remover Participante
     public void removerParticipante(String numeroInscricao) {
         NoParticipante temp = inicioParticipantes;
         NoParticipante anterior = null;
@@ -83,71 +125,31 @@ public class GerenciadorEventos {
             anterior = temp;
             temp = temp.getProximo();
         }
-        if (temp == null)
+        if (temp == null) {
+            System.out.println("Participante não encontrado.");
             return;
+        }
 
         if (anterior == null) {
             inicioParticipantes = temp.getProximo();
         } else {
             anterior.setProximo(temp.getProximo());
         }
+        System.out.println("Participante removido com sucesso.");
     }
 
-    // Método para buscar um participante pelo número de inscrição
-    public Participante buscarParticipante(String numeroInscricao) {
-        NoParticipante temp = inicioParticipantes;
-        while (temp != null) {
-            if (temp.getParticipante().getNumeroInscricao().equals(numeroInscricao)) {
-                return temp.getParticipante(); // Retorna o participante se encontrado
-            }
-            temp = temp.getProximo();
-        }
-        return null; // Retorna null se não encontrar
-    }
-
-    public void listarEventos() {
-        NoEvento temp = inicioEventos;
-        System.out.println("\nListagem de Eventos:");
-        System.out.printf("%-20s %-20s %-20s %-10s %-25s%n", "Nome", "Data", "Local", "Capacidade", "Participantes");
-        System.out.println(
-                "---------------------------------------------------------------------------------------------------");
-        while (temp != null) {
-            Evento evento = temp.getEvento();
-            StringBuilder participantesInscritos = new StringBuilder();
-
-            // Listar participantes inscritos no evento
-            NoParticipante tempParticipante = inicioParticipantes;
-            while (tempParticipante != null) {
-                Participante participante = tempParticipante.getParticipante();
-                if (participante.getEvento().getNome().equals(evento.getNome())) {
-                    participantesInscritos.append(participante.getNome()).append(", ");
-                }
-                tempParticipante = tempParticipante.getProximo();
-            }
-
-            // Remover a última vírgula e espaço se houver participantes
-            if (participantesInscritos.length() > 0) {
-                participantesInscritos.setLength(participantesInscritos.length() - 2); // Remove o último ", "
-            } else {
-                participantesInscritos.append("Nenhum participante inscrito");
-            }
-
-            System.out.printf("%-20s %-20s %-20s %-10d %-25s%n",
-                    evento.getNome(),
-                    evento.getData(),
-                    evento.getLocal(),
-                    evento.getCapacidade(),
-                    participantesInscritos.toString());
-
-            temp = temp.getProximo();
-        }
-    }
-
+    // Listar Participantes
     public void listarParticipantes() {
         NoParticipante temp = inicioParticipantes;
+        if (temp == null) {
+            System.out.println("Nenhum participante cadastrado.");
+            return;
+        }
+
         System.out.println("\nListagem de Participantes:");
         System.out.printf("%-20s %-25s %-20s%n", "Nome", "Número de Inscrição", "Evento");
         System.out.println("----------------------------------------------------------");
+
         while (temp != null) {
             Participante participante = temp.getParticipante();
             System.out.printf("%-20s %-25s %-20s%n",
@@ -156,5 +158,21 @@ public class GerenciadorEventos {
                     participante.getEvento().getNome());
             temp = temp.getProximo();
         }
+    }
+
+    // Buscar Participantes de um Evento
+    private List<String> buscarParticipantesEvento(String nomeEvento) {
+        List<String> participantesInscritos = new ArrayList<>();
+        NoParticipante tempParticipante = inicioParticipantes;
+
+        while (tempParticipante != null) {
+            Participante participante = tempParticipante.getParticipante();
+            if (participante.getEvento().getNome().equals(nomeEvento)) {
+                participantesInscritos.add(participante.getNome());
+            }
+            tempParticipante = tempParticipante.getProximo();
+        }
+
+        return participantesInscritos;
     }
 }

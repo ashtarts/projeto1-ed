@@ -3,25 +3,48 @@ public class Evento {
     private String data;
     private String local;
     private int capacidade;
-    private int totalIngressosVendidos;
-    private double totalArrecadado;
+    private double preco;
+    private int ingressosVendidos = 0;  // Contar os ingressos vendidos
+    private double totalArrecadado = 0;  // Contar a arrecadação
 
-    public Evento(String nome, String data, String local, int capacidade) {
+    public Evento(String nome, String data, String local, int capacidade, double preco) {
         this.nome = nome;
         this.data = data;
         this.local = local;
         this.capacidade = capacidade;
-        this.totalIngressosVendidos = 0;
-        this.totalArrecadado = 0.0;
+        this.preco = preco;
     }
 
-    // Métodos para atualizar ingressos e arrecadação
-    public void venderIngresso(double valorIngresso) {
-        this.totalIngressosVendidos++;
-        this.totalArrecadado += valorIngresso;
+
+    public double getPreco() { return preco; }
+    public void setPreco(double preco) { this.preco = preco; }
+
+    //Método para obter o preço do ingresso, considerando a meia-entrada
+    public double getPrecoIngresso(boolean meiaEntrada) {
+        return meiaEntrada ? preco / 2 : preco;
     }
 
-    // Getters e Setters
+    // Método para vender ingresso
+    public void venderIngresso(boolean meiaEntrada) {
+        if (ingressosVendidos < capacidade) {
+            double precoFinal = getPrecoIngresso(meiaEntrada);
+            ingressosVendidos++;
+            totalArrecadado += precoFinal;
+            System.out.println("Ingresso vendido por " + precoFinal + " reais.");
+        } else {
+            System.out.println("Capacidade do evento esgotada.");
+        }
+    }
+
+    public int getTotalIngressosVendidos() {
+        return ingressosVendidos;
+    }
+
+    public double getTotalArrecadado() {
+        return totalArrecadado;
+    }
+
+    // Outros getters e setters
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome; }
 
@@ -34,10 +57,6 @@ public class Evento {
     public int getCapacidade() { return capacidade; }
     public void setCapacidade(int capacidade) { this.capacidade = capacidade; }
 
-    public int getTotalIngressosVendidos() { return totalIngressosVendidos; }
-
-    public double getTotalArrecadado() { return totalArrecadado; }
-
     @Override
     public String toString() {
         return "Evento{" +
@@ -45,8 +64,7 @@ public class Evento {
                 ", data='" + data + '\'' +
                 ", local='" + local + '\'' +
                 ", capacidade=" + capacidade +
-                ", totalIngressosVendidos=" + totalIngressosVendidos +
-                ", totalArrecadado=" + totalArrecadado +
+                ", preco=" + preco +
                 '}';
     }
 }

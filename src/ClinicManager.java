@@ -124,7 +124,7 @@ public class ClinicManager {
                     System.out.println("Opção inválida. Tente novamente.");
                     break;
             }
-        } while (option != 16);
+        } while (option != 17);
     }
 
 
