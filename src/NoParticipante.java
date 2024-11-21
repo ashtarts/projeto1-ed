@@ -7,9 +7,19 @@ public class NoParticipante {
         this.proximo = null;
     }
 
-    public Participante getParticipante() { return participante; }
-    public void setParticipante(Participante participante) { this.participante = participante; }
+    public Participante getParticipante() {
+        return participante;
+    }
 
-    public NoParticipante getProximo() { return proximo; }
-    public void setProximo(NoParticipante proximo) { this.proximo = proximo; }
+    public void setParticipante(Participante participante) {
+        this.participante = participante;
+    }
+
+    public NoParticipante getProximo() {
+        return proximo;
+    }
+
+    public void setProximo(NoParticipante proximo) {
+        this.proximo = proximo;
+    }
 }

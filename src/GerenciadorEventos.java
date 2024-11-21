@@ -1,16 +1,17 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class GerenciadorEventos {
-    private NoEventoBinario inicioEventos;
-    private NoParticipante inicioParticipantes;
+    private NoEventoBinario inicioEventos; // Binary tree for events
+    private NoParticipante inicioParticipantes; // Linked list for participants
+    private Stack<Evento> historicoEventos; // Stack for event history
 
     public GerenciadorEventos() {
         this.inicioEventos = null;
         this.inicioParticipantes = null;
+        this.historicoEventos = new Stack<>();
     }
 
-    // Adicionar Evento
+    // Adicionar Evento (Binary Tree)
     public void adicionarEvento(Evento evento) {
         NoEventoBinario novoNo = new NoEventoBinario(evento);
         if (inicioEventos == null) {
@@ -22,6 +23,7 @@ public class GerenciadorEventos {
             }
             temp.setProximo(novoNo);
         }
+        System.out.println("Evento " + evento.getNome() + " adicionado com sucesso.");
     }
 
     // Atualizar Evento
@@ -90,19 +92,34 @@ public class GerenciadorEventos {
             temp = temp.getProximo();
         }
     }
+
     // Buscar Evento
     public Evento buscarEvento(String nome) {
         NoEventoBinario temp = inicioEventos;
         while (temp != null) {
             if (temp.getEvento().getNome().equalsIgnoreCase(nome)) {
+                historicoEventos.add(temp.getEvento());
                 return temp.getEvento();
             }
             temp = temp.getProximo();
         }
-        return null; // Retorna null se o evento não for encontrado
+        System.out.println("Evento não encontrado.");
+        return null;
     }
 
-    // Adicionar Participante
+    // Mostrar Histórico de Eventos
+    public void mostrarHistorico() {
+        if (historicoEventos.isEmpty()) {
+            System.out.println("Nenhum evento foi consultado.");
+        } else {
+            System.out.println("Histórico de Eventos:");
+            for (Evento evento : historicoEventos) {
+                System.out.println(evento);
+            }
+        }
+    }
+
+    // Adicionar Participante (Linked List)
     public void adicionarParticipante(Participante participante) {
         NoParticipante novoNo = new NoParticipante(participante);
         if (inicioParticipantes == null) {
@@ -118,10 +135,11 @@ public class GerenciadorEventos {
     }
 
     // Remover Participante
-    public void removerParticipante(String numeroInscricao) {
+    // Remover Participante
+    public void removerParticipante(int numeroInscricao) { // Change parameter type to int
         NoParticipante temp = inicioParticipantes;
         NoParticipante anterior = null;
-        while (temp != null && !temp.getParticipante().getNumeroInscricao().equals(numeroInscricao)) {
+        while (temp != null && temp.getParticipante().getNumeroInscricao() != numeroInscricao) { // Use '!=' for comparison
             anterior = temp;
             temp = temp.getProximo();
         }
@@ -137,6 +155,7 @@ public class GerenciadorEventos {
         }
         System.out.println("Participante removido com sucesso.");
     }
+
 
     // Listar Participantes
     public void listarParticipantes() {

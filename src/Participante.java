@@ -1,12 +1,14 @@
 public class Participante {
     private String nome;
-    private String numeroInscricao;
-    private Evento evento;
+    private int numeroInscricao;
+    private int prioridade;
+    private Evento evento; // Add a reference to the associated Evento
 
-    public Participante(String nome, String numeroInscricao, Evento evento) {
+    public Participante(String nome, int numeroInscricao, int prioridade, Evento evento) {
         this.nome = nome;
         this.numeroInscricao = numeroInscricao;
-        this.evento = evento;
+        this.prioridade = prioridade;
+        this.evento = evento; // Initialize the associated Evento
     }
 
     public String getNome() {
@@ -17,28 +19,33 @@ public class Participante {
         this.nome = nome;
     }
 
-    public String getNumeroInscricao() {
+    public int getNumeroInscricao() {
         return numeroInscricao;
     }
 
-    public void setNumeroInscricao(String numeroInscricao) {
+    public void setNumeroInscricao(int numeroInscricao) {
         this.numeroInscricao = numeroInscricao;
     }
 
-    public Evento getEvento() {
+    public int getPrioridade() {
+        return prioridade;
+    }
+
+    public void setPrioridade(int prioridade) {
+        this.prioridade = prioridade;
+    }
+
+    public Evento getEvento() { // Add getter for the associated Evento
         return evento;
     }
 
-    public void setEvento(Evento evento) {
+    public void setEvento(Evento evento) { // Add setter for the associated Evento
         this.evento = evento;
     }
 
     @Override
     public String toString() {
-        return "Participante{" +
-                "nome='" + nome + '\'' +
-                ", numeroInscricao='" + numeroInscricao + '\'' +
-                ", evento=" + evento +
-                '}';
+        return "Participante: " + nome + ", Inscrição: " + numeroInscricao + ", Prioridade: " + prioridade +
+                ", Evento: " + (evento != null ? evento.getNome() : "Nenhum");
     }
 }

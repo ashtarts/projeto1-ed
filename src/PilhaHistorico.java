@@ -7,17 +7,14 @@ public class PilhaHistorico {
         historico = new Stack<>();
     }
 
-    // Adicionar ação ao histórico
-    public void adicionarAção(String acao) {
+    public void adicionarAcao(String acao) {
         historico.push(acao);
     }
 
-    // Remover última ação
-    public String removerUltimaAção() {
+    public String removerUltimaAcao() {
         return historico.isEmpty() ? null : historico.pop();
     }
 
-    // Exibir histórico de ações
     public void exibirHistorico() {
         System.out.println("\nHistórico de Ações:");
         for (String acao : historico) {
